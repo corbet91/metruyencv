@@ -1,5 +1,5 @@
 import React from 'react'
-import Divider from '../custome-ui/divider/divider'
+import Divider from '../../custome-ui/divider/divider'
 import OutlinePen from '@/assets/icons/OutlinePen'
 import OutlineStore from '@/assets/icons/OutlineStore'
 import OutlineRank from '@/assets/icons/OutlineRank'
