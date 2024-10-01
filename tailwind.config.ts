@@ -11,7 +11,9 @@ const config: Config = {
   	extend: {
 		colors: {
 			'gray-200': '#e5e7eb',
-			'light-gray' : 'rgb(228 222 206)'
+			'light-gray' : 'rgb(228 222 206)',
+			'light-beige' : 'rgb(228, 222, 206)',
+			'amber': 'rgb(183, 138, 40)'
 		  },
   		borderRadius: {
   			lg: 'var(--radius)',
