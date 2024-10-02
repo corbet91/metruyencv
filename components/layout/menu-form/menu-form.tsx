@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import Divider from '../../custome-ui/divider/divider'
 import OutlinePen from '@/assets/icons/OutlinePen'
 import OutlineStore from '@/assets/icons/OutlineStore'
@@ -10,11 +10,22 @@ import FormLogin from './form-login'
 import FormRegister from './form-register'
 
 const MenuForm = () => {
+  const [isOpenFormRegister,setIsOpenFormRegister] = useState(false)
+
+  const handleOpenFormRegister = () => {
+    setIsOpenFormRegister(true);
+  };
+
+  const handleCloseFormRegister = () => {
+    setIsOpenFormRegister(false);
+  };
+
+
   return (
     <div>
         <div className='flex flex-col  py-4  gap-4'>
             <div className='font-semibold'><FormLogin title ={'Đăng nhập'} /></div>
-            <div className='font-semibold'><FormRegister title ={'Đăng ký tài khoản'} /></div>
+            <div className='font-semibold cursor-pointer' onClick={handleOpenFormRegister}>Đăng ký tài khoản </div>
             <Divider />
             <div className='flex flex-row gap-2 font-semibold'><OutlinePen /> Đăng truyện</div>
             <div className='flex flex-row gap-2 font-semibold'><OutlineStore/> Kho truyện</div>
@@ -42,6 +53,7 @@ const MenuForm = () => {
                < OutlineEvaluate /> Đánh giá mới
             </div>
         </div>
+        <FormRegister isOpen={isOpenFormRegister} onClose={handleCloseFormRegister}/>
     </div>
   )
 }

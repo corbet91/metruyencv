@@ -1,4 +1,3 @@
-import { register } from "@/actions/register";
 import { PrimaryButton } from "@/components/custome-ui/button";
 import InputController from "@/components/custome-ui/input/input";
 import {
@@ -6,46 +5,58 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  DialogTitle
 } from "@/components/ui/dialog";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/hooks/use-toast";
+
+import { handleRegisterUser } from "@/services/auth/register";
 import { useForm } from "react-hook-form";
 
+
 interface IFormRegister {
-  title: string;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 interface IFormInput {
-    email: string;
-    password: string;
-  }
+  email: string;
+  password: string;
+  confirmPassword: string
+}
 
-const FormRegister: React.FC<IFormRegister> = ({ title }) => {
+const FormRegister: React.FC<IFormRegister> = ({ isOpen, onClose }) => {
+  const { toast } = useToast()
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<IFormInput>();
 
-    const {
-        control,
-        handleSubmit,
-        formState: { errors },
-      } = useForm<IFormInput>();
+  const password = watch('password')
+  const confirmPassword = watch('confirmPassword')
+
+  const onSubmit = async (data: IFormInput) => {
+
+    if (password !== confirmPassword) {
+      return toast({
+        variant: "destructive",
+        title: "Lỗi",
+        description: "Mật khẩu không khớp",
+      })
+    }
+
+    const res = await handleRegisterUser(data)
+
     
-      const onSubmit = async (data:IFormInput) => {
-        const response = await fetch('/api/auth/signup', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email : data.email, password : data.password }),
-        });
-  
-       
-      }
-
+  }
+  console.log("errors",errors)
   return (
-    <Dialog>
-      <DialogTrigger>{title}</DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="bg-light-beige p-6 max-w-xs sm:max-w-sm md:max-w-md w-full rounded-xl m-auto">
         <DialogHeader>
-          <DialogTitle className="text-center">Đăng Nhập</DialogTitle>
+          <DialogTitle className="text-center">Đăng ký</DialogTitle>
           <DialogDescription className="flex flex-col gap-6">
             <form
               onSubmit={handleSubmit(onSubmit)}
@@ -53,7 +64,7 @@ const FormRegister: React.FC<IFormRegister> = ({ title }) => {
             >
               <InputController
                 control={control}
-                name="email"
+                name="Email"
                 placeholder="email"
                 title="email"
                 className="h-10 rounded-xl"
@@ -64,13 +75,18 @@ const FormRegister: React.FC<IFormRegister> = ({ title }) => {
                 placeholder="password"
                 title="Mật khẩu"
                 className="h-10 rounded-xl"
+                type="password"
+              />
+              <InputController
+                control={control}
+                name="confirmPassword"
+                placeholder="password"
+                title="Nhập lại mật khẩu"
+                className="h-10 rounded-xl"
+                type="password"
               />
               <div className="flex flex-col gap-3">
-                <PrimaryButton title="Đăng nhập" type="submit" />
-                <span className="m-auto">
-                  Chưa có tài khoản?{" "}
-                  <span className="text-amber">Đăng ký ngay</span>
-                </span>
+                <PrimaryButton title="Đăng ký" type="submit" />
               </div>
             </form>
           </DialogDescription>

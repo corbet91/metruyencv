@@ -8,3 +8,9 @@ export interface UserDocument {
     createdAt: Date;
     updatedAt: Date;
   }
+
+  export interface IUser {
+    email: string
+    password : string
+    
+  }

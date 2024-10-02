@@ -64,6 +64,7 @@ const FormLogin: React.FC<IFormLogin> = ({ title }) => {
               placeholder="password"
               title="Mật khẩu"
               className="h-10 rounded-xl"
+              type="password"
             />
             <div className="flex flex-col gap-3">
               <PrimaryButton title="Đăng nhập" type="submit" />
