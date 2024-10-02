@@ -25,6 +25,7 @@ const FormLogin: React.FC<IFormLogin> = ({ title }) => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<IFormInput>();
 
@@ -35,6 +36,10 @@ const FormLogin: React.FC<IFormLogin> = ({ title }) => {
       password: data.password,
       redirect: false,
     });
+
+    if(res) {
+      reset()
+    }
    
   }
 
