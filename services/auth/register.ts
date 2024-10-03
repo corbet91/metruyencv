@@ -1,13 +1,13 @@
 import { IUser } from "@/types/user";
 import apiClient from "../api";
 
-export const handleRegisterUser = async ({ email, password }: IUser) => {
+export const handleRegisterUser = async (data: IUser) => {
     try {
         const response = await apiClient.post('/api/auth/signup', {
-            email : email,
-            password : password
+            email : data.email,
+            password : data.password
         });
-        console.log(response.data);
+     return response
     } catch (error) {
         console.error('Error fetching data:', error);
     }

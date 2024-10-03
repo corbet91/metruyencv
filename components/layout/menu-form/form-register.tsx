@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogOverlay,
   DialogTitle
 } from "@/components/ui/dialog";
 import { ToastAction } from "@/components/ui/toast";
@@ -46,15 +47,24 @@ const FormRegister: React.FC<IFormRegister> = ({ isOpen, onClose }) => {
         description: "Mật khẩu không khớp",
       })
     }
-
+    console.log("data",data)
     const res = await handleRegisterUser(data)
+    if(res?.status === 201) {
+      onClose()
+      toast({
+        variant: "success",
+        title: "Thành công",
+      })
+    }
+    }
+    
 
     
-  }
-  console.log("errors",errors)
+  
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-light-beige p-6 max-w-xs sm:max-w-sm md:max-w-md w-full rounded-xl m-auto">
+      <DialogContent className="rounded-xl bg-light-beige p-6 max-w-xs sm:max-w-sm md:max-w-md w-full m-auto">
         <DialogHeader>
           <DialogTitle className="text-center">Đăng ký</DialogTitle>
           <DialogDescription className="flex flex-col gap-6">
@@ -64,7 +74,7 @@ const FormRegister: React.FC<IFormRegister> = ({ isOpen, onClose }) => {
             >
               <InputController
                 control={control}
-                name="Email"
+                name="email"
                 placeholder="email"
                 title="email"
                 className="h-10 rounded-xl"

@@ -35,6 +35,7 @@ const InputController: React.FC<IInputController> = ({
             onBlur={onBlur}
             onChange={onChange}
             value={value}
+            className="focus-visible:border-red-50"
             {...props}
           />
         )}

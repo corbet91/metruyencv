@@ -11,9 +11,11 @@ import {
 import React from "react";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react"
+import { useToast } from "@/hooks/use-toast";
 
 interface IFormLogin {
-  title: string;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 interface IFormInput {
@@ -21,7 +23,8 @@ interface IFormInput {
   password: string;
 }
 
-const FormLogin: React.FC<IFormLogin> = ({ title }) => {
+const FormLogin: React.FC<IFormLogin> = ({ isOpen, onClose }) => {
+  const { toast } = useToast()
   const {
     control,
     handleSubmit,
@@ -30,22 +33,25 @@ const FormLogin: React.FC<IFormLogin> = ({ title }) => {
   } = useForm<IFormInput>();
 
   const onSubmit = async (data:IFormInput) => {
-    console.log("data",data)
     const res = await signIn("credentials", {
       email: data.email,
       password: data.password,
       redirect: false,
     });
 
-    if(res) {
+    if(res?.status === 200) {
       reset()
+      toast({
+        variant: "success",
+        title: "Thành công",
+      })
+      onClose()
     }
    
   }
 
   return (
-    <Dialog>
-    <DialogTrigger>{title}</DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={onClose}>
     <DialogContent className="bg-light-beige p-6 max-w-xs sm:max-w-sm md:max-w-md w-full rounded-xl m-auto">
       <DialogHeader>
         <DialogTitle className="text-center">Đăng Nhập</DialogTitle>

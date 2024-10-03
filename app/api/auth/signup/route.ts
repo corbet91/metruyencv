@@ -6,29 +6,24 @@ import bcrypt from "bcryptjs";
 export const POST = async (req: NextRequest) => {
   try {
     const { email, password } = await req.json();
-    
-    // Kết nối đến cơ sở dữ liệu
+     console.log("req",email)
+
     await connectDB();
     
-    // Kiểm tra xem email đã tồn tại chưa
     const userFound = await User.findOne({ email });
     if (userFound) {
       return NextResponse.json({ error: 'Email already exists!' }, { status: 400 });
     }
     
-    // Mã hóa mật khẩu
     const hashedPassword = await bcrypt.hash(password, 10);
     
-    // Tạo người dùng mới
     const user = new User({
       email,
       password: hashedPassword,
     });
     
-    // Lưu người dùng vào cơ sở dữ liệu
     const savedUser = await user.save();
     
-    // Trả về thông tin người dùng đã lưu
     return NextResponse.json({ user: savedUser }, { status: 201 });
   } catch (err) {
     console.error("Error:", err);

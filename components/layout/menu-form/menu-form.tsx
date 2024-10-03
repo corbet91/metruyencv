@@ -8,9 +8,14 @@ import OutlineRealTime from '@/assets/icons/OutlineRealTime'
 import OutlineEvaluate from '@/assets/icons/OutlineEvaluate'
 import FormLogin from './form-login'
 import FormRegister from './form-register'
+import { useToast } from '@/hooks/use-toast'
+import { useSession } from 'next-auth/react'
 
 const MenuForm = () => {
+  const { data: session, status } = useSession()
   const [isOpenFormRegister,setIsOpenFormRegister] = useState(false)
+  const [isOpenFormLogin,setIsOpenFormLogin] = useState(false)
+  const { toast } = useToast()
 
   const handleOpenFormRegister = () => {
     setIsOpenFormRegister(true);
@@ -20,14 +25,21 @@ const MenuForm = () => {
     setIsOpenFormRegister(false);
   };
 
-
+  const handleOpenFormLogin = () => {
+    setIsOpenFormLogin(true)
+  }
+ 
+  const handleCloseFormLogin = () => {
+    setIsOpenFormLogin(false);
+  }
+  console.log("data",session)
   return (
     <div>
         <div className='flex flex-col  py-4  gap-4'>
-            <div className='font-semibold'><FormLogin title ={'Đăng nhập'} /></div>
+            <div className='font-semibold cursor-pointer' onClick={handleOpenFormLogin}>Đăng nhập</div>
             <div className='font-semibold cursor-pointer' onClick={handleOpenFormRegister}>Đăng ký tài khoản </div>
             <Divider />
-            <div className='flex flex-row gap-2 font-semibold'><OutlinePen /> Đăng truyện</div>
+            <div className='flex flex-row gap-2 font-semibold' ><OutlinePen /> Đăng truyện</div>
             <div className='flex flex-row gap-2 font-semibold'><OutlineStore/> Kho truyện</div>
             <ul className='mx-10 flex flex-col gap-2'>
             <li className='flex flex-row gap-2 items-center'><span className='rounded-full w-1 h-1 bg-black '></span >Truyện mới</li>
@@ -54,6 +66,7 @@ const MenuForm = () => {
             </div>
         </div>
         <FormRegister isOpen={isOpenFormRegister} onClose={handleCloseFormRegister}/>
+        <FormLogin isOpen={isOpenFormLogin} onClose={handleCloseFormLogin}/>
     </div>
   )
 }
