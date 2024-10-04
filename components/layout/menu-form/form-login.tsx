@@ -10,8 +10,9 @@ import {
 } from "@/components/ui/dialog";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { signIn } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 import { useToast } from "@/hooks/use-toast";
+
 
 interface IFormLogin {
   isOpen: boolean;
@@ -25,6 +26,7 @@ interface IFormInput {
 
 const FormLogin: React.FC<IFormLogin> = ({ isOpen, onClose }) => {
   const { toast } = useToast()
+  const { data: auth, status } = useSession()
   const {
     control,
     handleSubmit,
@@ -38,8 +40,8 @@ const FormLogin: React.FC<IFormLogin> = ({ isOpen, onClose }) => {
       password: data.password,
       redirect: false,
     });
-
     if(res?.status === 200) {
+      console.log(auth)
       reset()
       toast({
         variant: "success",

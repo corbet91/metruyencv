@@ -12,9 +12,9 @@ import { useToast } from '@/hooks/use-toast'
 import { useSession } from 'next-auth/react'
 
 const MenuForm = () => {
-  const { data: session, status } = useSession()
-  const [isOpenFormRegister,setIsOpenFormRegister] = useState(false)
-  const [isOpenFormLogin,setIsOpenFormLogin] = useState(false)
+  const { data: auth, status } = useSession()
+  const [isOpenFormRegister, setIsOpenFormRegister] = useState(false)
+  const [isOpenFormLogin, setIsOpenFormLogin] = useState(false)
   const { toast } = useToast()
 
   const handleOpenFormRegister = () => {
@@ -28,45 +28,53 @@ const MenuForm = () => {
   const handleOpenFormLogin = () => {
     setIsOpenFormLogin(true)
   }
- 
+
   const handleCloseFormLogin = () => {
     setIsOpenFormLogin(false);
   }
-  console.log("data",session)
+  console.log("data", auth)
   return (
     <div>
-        <div className='flex flex-col  py-4  gap-4'>
+      <div className='flex flex-col  py-4  gap-4'>
+        {!auth?.user?.email ?
+          <div>
             <div className='font-semibold cursor-pointer' onClick={handleOpenFormLogin}>Đăng nhập</div>
             <div className='font-semibold cursor-pointer' onClick={handleOpenFormRegister}>Đăng ký tài khoản </div>
-            <Divider />
-            <div className='flex flex-row gap-2 font-semibold' ><OutlinePen /> Đăng truyện</div>
-            <div className='flex flex-row gap-2 font-semibold'><OutlineStore/> Kho truyện</div>
-            <ul className='mx-10 flex flex-col gap-2'>
-            <li className='flex flex-row gap-2 items-center'><span className='rounded-full w-1 h-1 bg-black '></span >Truyện mới</li>
-              <Divider />
-              <li className='flex flex-row gap-2 items-center'><span className='rounded-full w-1 h-1 bg-black '></span >Truyện full</li>
-            </ul>
-            <div className='flex flex-row gap-2 font-semibold'>
-               < OutlineRank /> Xếp hạng
+          </div> : <div>
+            <div className ="flex flex-row justify-between"> 
+
             </div>
-            <ul className='mx-10 flex flex-col gap-2'>
-            <li className='flex flex-row gap-2 items-center'><span className='rounded-full w-1 h-1 bg-black '></span >Xếp hạng lượt đọc</li>
-            <Divider />
-            <li className='flex flex-row gap-2 items-center'><span className='rounded-full w-1 h-1 bg-black '></span >Xếp hạng đề cử</li>
-            <Divider />
-            <li className='flex flex-row gap-2 items-center'><span className='rounded-full w-1 h-1 bg-black '></span >Xếp hạng tặng thưởng</li>
-            <Divider />
-            <li className='flex flex-row gap-2 items-center'><span className='rounded-full w-1 h-1 bg-black '></span >Xếp hạng bình luận</li>
-            </ul>
-            <div className='flex flex-row gap-2 font-semibold'>
-               < OutlineRealTime /> Thời gian thực
-            </div>
-            <div className='flex flex-row gap-2 font-semibold'>
-               < OutlineEvaluate /> Đánh giá mới
-            </div>
+          </div>
+        }
+        <Divider />
+        <div className='flex flex-row gap-2 font-semibold' ><OutlinePen /> Đăng truyện</div>
+        <div className='flex flex-row gap-2 font-semibold'><OutlineStore /> Kho truyện</div>
+        <ul className='mx-10 flex flex-col gap-2'>
+          <li className='flex flex-row gap-2 items-center'><span className='rounded-full w-1 h-1 bg-black '></span >Truyện mới</li>
+          <Divider />
+          <li className='flex flex-row gap-2 items-center'><span className='rounded-full w-1 h-1 bg-black '></span >Truyện full</li>
+        </ul>
+        <div className='flex flex-row gap-2 font-semibold'>
+          < OutlineRank /> Xếp hạng
         </div>
-        <FormRegister isOpen={isOpenFormRegister} onClose={handleCloseFormRegister}/>
-        <FormLogin isOpen={isOpenFormLogin} onClose={handleCloseFormLogin}/>
+        <ul className='mx-10 flex flex-col gap-2'>
+          <li className='flex flex-row gap-2 items-center'><span className='rounded-full w-1 h-1 bg-black '></span >Xếp hạng lượt đọc</li>
+          <Divider />
+          <li className='flex flex-row gap-2 items-center'><span className='rounded-full w-1 h-1 bg-black '></span >Xếp hạng đề cử</li>
+          <Divider />
+          <li className='flex flex-row gap-2 items-center'><span className='rounded-full w-1 h-1 bg-black '></span >Xếp hạng tặng thưởng</li>
+          <Divider />
+          <li className='flex flex-row gap-2 items-center'><span className='rounded-full w-1 h-1 bg-black '></span >Xếp hạng bình luận</li>
+        </ul>
+        <div className='flex flex-row gap-2 font-semibold'>
+          < OutlineRealTime /> Thời gian thực
+        </div>
+        <div className='flex flex-row gap-2 font-semibold'>
+          < OutlineEvaluate /> Đánh giá mới
+        </div>
+      </div>
+      <FormRegister isOpen={isOpenFormRegister} onClose={handleCloseFormRegister} />
+      <FormLogin isOpen={isOpenFormLogin} onClose={handleCloseFormLogin} />
     </div>
   )
 }
