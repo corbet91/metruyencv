@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import React, { useState } from 'react'
 import Divider from '../../custome-ui/divider/divider'
 import OutlinePen from '@/assets/icons/OutlinePen'
@@ -10,13 +10,23 @@ import FormLogin from './form-login'
 import FormRegister from './form-register'
 import { useToast } from '@/hooks/use-toast'
 import { useSession } from 'next-auth/react'
+import { useQuery } from '@tanstack/react-query'
+import { getDetailUser } from '@/services/user'
+import FormAuth from './form-auth'
+
 
 const MenuForm = () => {
   const { data: auth, status } = useSession()
   const [isOpenFormRegister, setIsOpenFormRegister] = useState(false)
   const [isOpenFormLogin, setIsOpenFormLogin] = useState(false)
-  const { toast } = useToast()
-
+  const { data: userData } = useQuery({
+    queryKey: [`user_${auth?.user?._id}`,auth?.user?._id],
+    queryFn: () => getDetailUser(auth?.user?._id as string),
+    staleTime: 0,
+    gcTime: 0,
+    open: Boolean(auth?.user?._id),
+  })
+ 
   const handleOpenFormRegister = () => {
     setIsOpenFormRegister(true);
   };
@@ -36,15 +46,11 @@ const MenuForm = () => {
   return (
     <div>
       <div className='flex flex-col  py-4  gap-4'>
-        {!auth?.user?.email ?
+        {!auth?.user?._id ?
           <div>
             <div className='font-semibold cursor-pointer' onClick={handleOpenFormLogin}>Đăng nhập</div>
             <div className='font-semibold cursor-pointer' onClick={handleOpenFormRegister}>Đăng ký tài khoản </div>
-          </div> : <div>
-            <div className ="flex flex-row justify-between"> 
-
-            </div>
-          </div>
+          </div> : <FormAuth name={userData?.data?.name} image={userData?.data?.image} />
         }
         <Divider />
         <div className='flex flex-row gap-2 font-semibold' ><OutlinePen /> Đăng truyện</div>

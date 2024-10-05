@@ -9,11 +9,13 @@ declare module "next-auth" {
       access_token: any & DefaultSession["user"];
       email: string
       image: string
+      _id : string
     }
   }
 
   interface User {
       access_token: any
+      _id : string
      & DefaultSession["user"];
   }
 }
@@ -23,5 +25,6 @@ declare module "next-auth/jwt" {
   interface JWT {
     /** OpenID ID Token */
     access_token?: string;
+    _id : string
   }
 }

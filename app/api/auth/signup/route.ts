@@ -19,6 +19,7 @@ export const POST = async (req: NextRequest) => {
     const user = new User({
       email,
       password: hashedPassword,
+      image : null
     });
     
     const savedUser = await user.save();

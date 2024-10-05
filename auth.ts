@@ -1,9 +1,10 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { connectDB } from "@/lib/mongodb"; // Đường dẫn đến hàm kết nối DB
-import User from "@/lib/models/user"; // Đường dẫn đến model User
+import { connectDB } from "@/lib/mongodb";
+import User from "@/lib/models/user";
 import { randomBytes, randomUUID } from "crypto";
+
 
 export const authOptions = {
   providers: [
@@ -27,31 +28,39 @@ export const authOptions = {
         );
 
         if (!passwordMatch) throw new Error("Wrong Password");
-        return user; // Trả về user để thêm vào token
+
+        // Return user object without sensitive data
+        return { id: user._id, email: user.email, image: user.image }; 
       },
     }),
   ],
   session: {
     strategy: "jwt",
-    maxAge: 3 * 24 * 60 * 60, // 3 days in seconds
+    maxAge: 3 * 24 * 60 * 60,
     updateAge: 24 * 60 * 60,
     generateSessionToken: () => {
-      return randomUUID?.() ?? randomBytes(32).toString("hex")
-    }
+      return randomUUID?.() ?? randomBytes(32).toString("hex");
+    },
   },
   callbacks: {
-    async jwt({ token, user, account, profile, isNewUser }) {
-      return token
+    async jwt({ token, user }) {
+      // Include user data in the token when the user logs in
+      if (user) {
+        token._id = user.id; // Add user ID
+        token.email = user.email; // Add email
+        token.image = user.image; // Add other fields as necessary
+      }
+      return token;
     },
     async session({ session, token }) {
-      // Gán thông tin từ token vào session
-      session.user.id = token.id; // Gán ID người dùng
-      session.user.email = token.email; // Gán email người dùng
-      // Thêm bất kỳ thông tin nào khác bạn cần
+      // Add token properties to the session
+      session.user._id = token._id; 
+      session.user.email = token.email;
+      session.user.image = token.image; // Include any other fields
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET, // Đảm bảo rằng bạn đã thiết lập NEXTAUTH_SECRET
+  secret: process.env.NEXTAUTH_SECRET, 
 };
 
 export default NextAuth(authOptions);
