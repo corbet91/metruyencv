@@ -1,4 +1,4 @@
-import { PrimaryButton } from "@/components/custome-ui/button";
+import { AmberButton } from "@/components/custome-ui/button";
 import InputController from "@/components/custome-ui/input/input";
 import {
   Dialog,
@@ -97,7 +97,7 @@ const FormRegister: React.FC<IFormRegister> = ({ isOpen, onClose }) => {
               type="password"
             />
             <div className="flex flex-col gap-3">
-              <PrimaryButton title="Đăng ký" type="submit" />
+              <AmberButton title="Đăng ký" type="submit" />
             </div>
           </form>
         </DialogDescription>

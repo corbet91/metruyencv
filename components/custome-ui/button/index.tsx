@@ -1,13 +1,34 @@
-import { Button, ButtonProps } from "@/components/ui/button"
+import { Button, ButtonProps } from "@/components/ui/button";
+import { ReactNode } from "react";
 
-interface IPrimaryButton extends ButtonProps  {
-    title : string
+interface IAmberButton extends ButtonProps {
+  childreen? : ReactNode
 }
 
-export const PrimaryButton : React.FC<IPrimaryButton> = ({title,...props}) => {
-    return (
-        <Button className="bg-amber rounded-xl w-1/2 cursor-pointer text-white text-xl py-2 m-auto" {...props}>
-            {title}
-        </Button>
-    )
-}
+export const AmberButton: React.FC<IAmberButton> = ({
+  childreen,
+  className,
+  ...props
+}) => {
+  return (
+    <Button
+      className={`bg-amber rounded-xl w-1/2 cursor-pointer text-white text-xl py-2 m-auto ${className}`}
+      {...props}
+    >
+      {childreen}
+    </Button>
+  );
+};
+
+export const AmberOutLineButton: React.FC<IAmberButton> = ({ childreen,className, ...props }) => {
+  return (
+    <Button
+      className={`rounded border border-amber text-amber px-2 py-1 text-xs h-6 ${className}`}
+      {...props}
+    >
+      {childreen}
+    </Button>
+  );
+};
+
+

@@ -1,4 +1,4 @@
-import { PrimaryButton } from "@/components/custome-ui/button";
+import {  AmberButton } from "@/components/custome-ui/button";
 import Image from "next/image";
 import InputController from "@/components/custome-ui/input/input";
 import logo from "../../../public/images/logo.png";
@@ -86,7 +86,7 @@ const FormLogin: React.FC<IFormLogin> = ({ isOpen, onClose }) => {
               type="password"
             />
             <div className="flex flex-col gap-3">
-              <PrimaryButton title="Đăng nhập" type="submit" />
+              <AmberButton title="Đăng nhập" type="submit" />
               <span className="m-auto">
                 Chưa có tài khoản?{" "}
                 <span className="text-amber">Đăng ký ngay</span>

@@ -12,3 +12,5 @@ export const handleRegisterUser = async (data: IUser) => {
         console.error('Error fetching data:', error);
     }
 };
+
+
