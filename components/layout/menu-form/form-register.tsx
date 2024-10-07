@@ -19,15 +19,17 @@ import { useForm } from "react-hook-form";
 interface IFormRegister {
   isOpen: boolean;
   onClose: () => void;
+  onLogin: () => void
 }
 
 interface IFormInput {
   email: string;
   password: string;
   confirmPassword: string;
+
 }
 
-const FormRegister: React.FC<IFormRegister> = ({ isOpen, onClose }) => {
+const FormRegister: React.FC<IFormRegister> = ({ isOpen, onClose,onLogin }) => {
   const { toast } = useToast();
   const {
     control,
@@ -97,7 +99,14 @@ const FormRegister: React.FC<IFormRegister> = ({ isOpen, onClose }) => {
               type="password"
             />
             <div className="flex flex-col gap-3">
-              <AmberButton title="Đăng ký" type="submit" />
+              <AmberButton childreen={<span>Đăng ký</span>} type="submit" />
+              <span className="m-auto">
+                Đã có tài khoản? {" "}
+                <span className="text-amber cursor-pointer" onClick = {() => {
+                  onLogin()
+                  onClose()
+                }}>Đã có tài khoản?</span>
+              </span>
             </div>
           </form>
         </DialogDescription>

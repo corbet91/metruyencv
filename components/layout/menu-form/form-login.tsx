@@ -1,25 +1,25 @@
-import {  AmberButton } from "@/components/custome-ui/button";
-import Image from "next/image";
+import { AmberButton } from "@/components/custome-ui/button";
 import InputController from "@/components/custome-ui/input/input";
-import logo from "../../../public/images/logo.png";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  DialogTitle
 } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { X } from "lucide-react";
+import { signIn, useSession } from "next-auth/react";
+import Image from "next/image";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { signIn, useSession } from "next-auth/react";
-import { useToast } from "@/hooks/use-toast";
-import { X } from "lucide-react";
+import logo from "../../../public/images/logo.png";
 
 interface IFormLogin {
   isOpen: boolean;
   onClose: () => void;
+  onSignup: () => void
 }
 
 interface IFormInput {
@@ -27,7 +27,7 @@ interface IFormInput {
   password: string;
 }
 
-const FormLogin: React.FC<IFormLogin> = ({ isOpen, onClose }) => {
+const FormLogin: React.FC<IFormLogin> = ({ isOpen, onClose, onSignup }) => {
   const { toast } = useToast();
   const { data: auth, status } = useSession();
   const {
@@ -86,10 +86,13 @@ const FormLogin: React.FC<IFormLogin> = ({ isOpen, onClose }) => {
               type="password"
             />
             <div className="flex flex-col gap-3">
-              <AmberButton title="Đăng nhập" type="submit" />
+              <AmberButton childreen={<span>Đăng nhập</span>} type="submit" />
               <span className="m-auto">
                 Chưa có tài khoản?{" "}
-                <span className="text-amber">Đăng ký ngay</span>
+                <span className="text-amber cursor-pointer" onClick={() => {
+                  onSignup()
+                  onClose()
+                }}>Đăng ký ngay</span>
               </span>
             </div>
           </form>

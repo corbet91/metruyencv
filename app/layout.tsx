@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 };
 
 // Create a single instance of QueryClient
-const queryClient = new QueryClient();
+
 
 export default function RootLayout({
   children,

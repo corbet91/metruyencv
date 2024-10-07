@@ -1,20 +1,18 @@
 "use client";
-import React, { useState } from "react";
-import Divider from "../../custome-ui/divider/divider";
+import OutlineEvaluate from "@/assets/icons/OutlineEvaluate";
 import OutlinePen from "@/assets/icons/OutlinePen";
-import OutlineStore from "@/assets/icons/OutlineStore";
 import OutlineRank from "@/assets/icons/OutlineRank";
 import OutlineRealTime from "@/assets/icons/OutlineRealTime";
-import OutlineEvaluate from "@/assets/icons/OutlineEvaluate";
+import OutlineStore from "@/assets/icons/OutlineStore";
+import { BlackChip } from "@/components/custome-ui/chip";
+import { getDetailUser } from "@/services/user";
+import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
+import Divider from "../../custome-ui/divider/divider";
+import FormAuth from "./form-auth";
 import FormLogin from "./form-login";
 import FormRegister from "./form-register";
-import { useToast } from "@/hooks/use-toast";
-import { useSession } from "next-auth/react";
-import { useQuery } from "@tanstack/react-query";
-import { getDetailUser } from "@/services/user";
-import FormAuth from "./form-auth";
-import { BlackChip } from "@/components/custome-ui/chip";
-import ToggleMode from "@/components/custome-ui/toggle-mode";
 
 const MenuForm = () => {
   const { data: auth, status } = useSession();
@@ -43,7 +41,7 @@ const MenuForm = () => {
   const handleCloseFormLogin = () => {
     setIsOpenFormLogin(false);
   };
-  
+
   return (
     <div>
       <div className="flex flex-col  py-4  gap-4">
@@ -77,11 +75,11 @@ const MenuForm = () => {
         </div>
         <ul className="mx-10 flex flex-col gap-2">
           <li className="flex flex-row gap-2 items-center">
-            <BlackChip/>Truyện mới
+            <BlackChip />Truyện mới
           </li>
           <Divider />
           <li className="flex flex-row gap-2 items-center">
-            <BlackChip/>Truyện full
+            <BlackChip />Truyện full
           </li>
         </ul>
         <div className="flex flex-row gap-2 font-semibold">
@@ -89,22 +87,22 @@ const MenuForm = () => {
         </div>
         <ul className="mx-10 flex flex-col gap-2">
           <li className="flex flex-row gap-2 items-center">
-            <BlackChip/>Xếp hạng
+            <BlackChip />Xếp hạng
             lượt đọc
           </li>
           <Divider />
           <li className="flex flex-row gap-2 items-center">
-            <BlackChip/>Xếp hạng đề
+            <BlackChip />Xếp hạng đề
             cử
           </li>
           <Divider />
           <li className="flex flex-row gap-2 items-center">
-            <BlackChip/>Xếp hạng
+            <BlackChip />Xếp hạng
             tặng thưởng
           </li>
           <Divider />
           <li className="flex flex-row gap-2 items-center">
-            <BlackChip/>Xếp hạng
+            <BlackChip />Xếp hạng
             bình luận
           </li>
         </ul>
@@ -118,8 +116,9 @@ const MenuForm = () => {
       <FormRegister
         isOpen={isOpenFormRegister}
         onClose={handleCloseFormRegister}
+        onLogin={handleOpenFormLogin}
       />
-      <FormLogin isOpen={isOpenFormLogin} onClose={handleCloseFormLogin} />
+      <FormLogin isOpen={isOpenFormLogin} onClose={handleCloseFormLogin} onSignup={handleOpenFormRegister} />
     </div>
   );
 };

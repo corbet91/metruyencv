@@ -33,7 +33,7 @@ const FormAuth = ({ image, name }: IFormAuth) => {
           </h2>
           <ChipNotification total={0} />
         </div>
-        <AmberOutLineButton onClick={() => signOut()} childreen={<span>Thoát</span>}/>
+        <AmberOutLineButton onClick={() => signOut()} childreen={<span>Thoát</span>} />
       </div>
       <div className="mx-10 flex flex-col gap-2">
         <div className="flex flex-row gap-2 items-center">
@@ -59,32 +59,32 @@ const FormAuth = ({ image, name }: IFormAuth) => {
         <Divider />
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row gap-2 items-center">
-            <TooltipUi childreen={<Image src={potato} alt="potato" className="w-5 h-5" />} content="Khoai: dùng để mở khóa chương, tặng quà, nâng cấp tài khoản"/>
+            <TooltipUi childreen={<Image src={potato} alt="potato" className="w-5 h-5" />} content="Khoai: dùng để mở khóa chương, tặng quà, nâng cấp tài khoản" />
             <span>0</span>
           </div>
           <div className="flex flex-row gap-2 items-center">
             <span>0</span>
-            <TooltipUi childreen={<Key className="text-amber" />} content="CHÌA KHÓA: dùng để mở khóa chương"/>
+            <TooltipUi childreen={<Key className="text-amber" />} content="CHÌA KHÓA: dùng để mở khóa chương" />
           </div>
         </div>
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row gap-2 items-center">
-          <TooltipUi childreen={<Image src={candy} alt="candy" className="w-5 h-5" />} content=" KẸO: tiền tệ sử dụng ở phiên bản cũ, có thể đổi sang KHOAI để dùng ở phiên bản mới "/>
+            <TooltipUi childreen={<Image src={candy} alt="candy" className="w-5 h-5" />} content=" KẸO: tiền tệ sử dụng ở phiên bản cũ, có thể đổi sang KHOAI để dùng ở phiên bản mới " />
             <span>0</span>
           </div>
           <div className="flex flex-row gap-2 items-center">
             <span>0</span>
-            <TooltipUi childreen={<Vote className="text-amber" />} content=" PHIẾU: dùng để đề cử cho truyện "/>
+            <TooltipUi childreen={<Vote className="text-amber" />} content=" PHIẾU: dùng để đề cử cho truyện " />
           </div>
         </div>
-        <AmberOutLineButton 
-         childreen={
-           <div className="flex flex-row justify-center items-center gap-2">
+        <AmberOutLineButton
+          childreen={
+            <div className="flex flex-row justify-center items-center gap-2">
               <span className="font-bold text-xl text-amber">Nạp</span>
               <Image src={potato} alt="potato-big" className="w-8 h-8" />
-           </div>
-         }
-         className="h-12"
+            </div>
+          }
+          className="h-12"
         />
       </div>
     </div>
