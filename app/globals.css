@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: sans-serif;
+  font-family: var(--font-geist-Avenir-Next) var(--font-geist-arial) var(--font-helvetica) sans-serif;
   font-size: 14px;
   max-width: 1024px;
   margin-left: auto;
@@ -15,5 +15,3 @@ body {
     text-wrap: balance;
   }
 } */
-
-

@@ -18,6 +18,26 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
+const geistAvenirNext = localFont({
+  src: "./fonts/AvenirNextLTPro-Bold.otf",
+  variable: "--font-geist-Avenir-Next",
+  weight: "100 900",
+});
+
+const geistArial = localFont({
+  src: "./fonts/ARIAL.woff",
+  variable: "--font-geist-arial",
+  weight: "100 900",
+});
+
+const geistHelvetica = localFont({
+  src: "./fonts/Helvetica-Bold.woff",
+  variable: "--font-helvetica",
+  weight: "100 900",
+});
+
+
+
 // Metadata for the layout
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -35,7 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${geistAvenirNext.variable} ${geistArial.variable} ${geistHelvetica.variable} antialiased`}
       >
         <Providers>{children}</Providers>
         <Toaster />

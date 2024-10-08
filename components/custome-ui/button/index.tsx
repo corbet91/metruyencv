@@ -2,7 +2,7 @@ import { Button, ButtonProps } from "@/components/ui/button";
 import { ReactNode } from "react";
 
 interface IAmberButton extends ButtonProps {
-  childreen? : ReactNode
+  childreen?: ReactNode
 }
 
 export const AmberButton: React.FC<IAmberButton> = ({
@@ -20,7 +20,8 @@ export const AmberButton: React.FC<IAmberButton> = ({
   );
 };
 
-export const AmberOutLineButton: React.FC<IAmberButton> = ({ childreen,className, ...props }) => {
+export const AmberOutLineButton: React.FC<IAmberButton> = ({ childreen, className, ...props }) => {
+  console.log("childreen", childreen)
   return (
     <Button
       className={`rounded border border-amber text-amber px-2 py-1 text-xs h-6 ${className}`}
