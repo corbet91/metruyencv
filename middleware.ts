@@ -1,23 +1,21 @@
-'use-server'
-import { getSession } from 'next-auth/react';
+import { withAuth } from "next-auth/middleware";
 import { NextResponse } from 'next/server';
 
-export async function middleware(req) {
-    const session = await getSession({ req });
-
-    // Define the paths that require authentication
-    const protectedPaths = ['/account', '/dashboard'];
-    console.log("session", session)
-    // Check if the request is for a protected path
-    if (protectedPaths.some(path => req.nextUrl.pathname.startsWith(path))) {
-        if (!session?.user) {
+export default withAuth(
+    function middleware(req) {
+        if (!req.nextauth.token) {
+            console.log("req.nextauth.token", req.nextauth.token)
             return NextResponse.redirect(new URL('/support', req.url));
         }
-        return NextResponse.next();
+    },
+    {
+        callbacks: {
+            authorized: ({ token }) => {
+                console.log("req.nextauth.token", token)
+                return true;
+            },
+        },
     }
-}
+);
 
-// Define the matcher for the middleware
-export const config = {
-    matcher: ['/account/:path*'], // Apply middleware to these paths
-};
+export const config = { matcher: ["/account/:path*"] };
