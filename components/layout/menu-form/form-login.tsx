@@ -28,8 +28,8 @@ interface IFormInput {
 }
 
 const FormLogin: React.FC<IFormLogin> = ({ isOpen, onClose, onSignup }) => {
-  const { toast } = useToast();
   const { data: auth, status } = useSession();
+  const { toast } = useToast();
   const {
     control,
     handleSubmit,
@@ -44,7 +44,7 @@ const FormLogin: React.FC<IFormLogin> = ({ isOpen, onClose, onSignup }) => {
       redirect: false,
     });
     if (res?.status === 200) {
-      console.log(auth);
+      console.log('res', auth);
       reset();
       toast({
         variant: "success",

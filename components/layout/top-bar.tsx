@@ -11,7 +11,7 @@ const TopBar = () => {
      "
     >
       <CiSearch className="w-6 h-6" />
-      <Image src={logo} alt="logo" className="w-10 h-10" />
+      <a href="/"><Image src={logo} alt="logo" className="w-10 h-10" /></a>
       <MenuTopBar childreen={<MenuForm />}>
 
       </MenuTopBar>

@@ -4,14 +4,16 @@ import { ReactNode } from "react"
 
 interface ICard {
     children: ReactNode
+    className?: string
 }
 
 export const UpgradeUserCard: React.FC<ICard> = (props) => {
     const {
-        children
+        children,
+        className
     } = props
     return (
-        <Card className="rounded-3xl border border-gray-200 xl:p-10 lg:mt-8 lg:rounded-r-none max-w-md w-full">
+        <Card className={` border border-gray-200 xl:p-10 lg:mt-8  max-w-md w-full ${className}`}>
             <CardContent className='pt-6'>
                 {children}
             </CardContent>
