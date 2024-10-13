@@ -16,10 +16,12 @@ const Providers = async ({ children }: PropsWithChildren) => {
     >
       <AppQueryProvider>
         <SessionProviders>
-          <TopBar />
-          <Banner src={null} />
-          {children}
-          <Footer />
+          <div className="max-w-[1024px] m-auto">
+            <TopBar />
+            <Banner src={null} />
+            {children}
+            <Footer />
+          </div>
         </SessionProviders>
       </AppQueryProvider>
     </ThemeProvider>

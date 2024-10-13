@@ -5,7 +5,6 @@
 body {
   font-family: var(--font-geist-Avenir-Next) var(--font-geist-arial) var(--font-helvetica) sans-serif;
   font-size: 14px;
-  max-width: 1024px;
   margin-left: auto;
   margin-right: auto;
 }

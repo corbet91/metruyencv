@@ -15,6 +15,9 @@ import Image from "next/image";
 import React from "react";
 import { useForm } from "react-hook-form";
 import logo from "../../../public/images/logo.png";
+import { useRouter } from "next/navigation";
+import { usePathname } from 'next/navigation'
+
 
 interface IFormLogin {
   isOpen: boolean;
@@ -29,6 +32,8 @@ interface IFormInput {
 
 const FormLogin: React.FC<IFormLogin> = ({ isOpen, onClose, onSignup }) => {
   const { data: auth, status } = useSession();
+  const router = useRouter()
+  const pathname = usePathname()
   const { toast } = useToast();
   const {
     control,
@@ -44,7 +49,9 @@ const FormLogin: React.FC<IFormLogin> = ({ isOpen, onClose, onSignup }) => {
       redirect: false,
     });
     if (res?.status === 200) {
-      console.log('res', auth);
+      if(pathname.startsWith('/support')){ 
+        router.back()
+      }
       reset();
       toast({
         variant: "success",
@@ -53,7 +60,7 @@ const FormLogin: React.FC<IFormLogin> = ({ isOpen, onClose, onSignup }) => {
       onClose();
     }
   };
-
+  
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="bg-light-beige p-6 max-w-xs sm:max-w-sm md:max-w-md w-full rounded-xl m-auto">

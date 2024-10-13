@@ -13,9 +13,11 @@ import Divider from "../../custome-ui/divider/divider";
 import FormAuth from "./form-auth";
 import FormLogin from "./form-login";
 import FormRegister from "./form-register";
+import { useRouter } from "next/navigation";
 
 const MenuForm = () => {
   const { data: auth, status } = useSession();
+  const router = useRouter()
   const [isOpenFormRegister, setIsOpenFormRegister] = useState(false);
   const [isOpenFormLogin, setIsOpenFormLogin] = useState(false);
   const { data: userData } = useQuery({
@@ -23,7 +25,7 @@ const MenuForm = () => {
     queryFn: () => getDetailUser(auth?.user?._id as string),
     staleTime: 0,
     gcTime: 0,
-    open: Boolean(auth?.user?._id),
+    open: !!Boolean(auth?.user?._id),
   });
 
   const handleOpenFormRegister = () => {
