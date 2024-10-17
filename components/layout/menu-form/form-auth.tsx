@@ -1,18 +1,17 @@
+import Key from "@/assets/icons/Key";
+import Vote from "@/assets/icons/Vote";
 import { AmberOutLineButton } from "@/components/custome-ui/button";
 import { BlackChip, ChipNotification } from "@/components/custome-ui/chip";
 import Divider from "@/components/custome-ui/divider/divider";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Image from "next/image";
-import newImage from "../../../public/images/new.png";
-import { signOut } from "next-auth/react";
-import potato from "../../../public/images/potato.png";
-import candy from "../../../public/images/candy.png";
-import Key from "@/assets/icons/Key";
-import Vote from "@/assets/icons/Vote";
 import TooltipUi from "@/components/custome-ui/tooltip";
-import { useRouter } from "next/navigation";
-import { Children } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { signOut } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import candy from "../../../public/images/candy.png";
+import newImage from "../../../public/images/new.png";
+import potato from "../../../public/images/potato.png";
 
 interface IFormAuth {
   image: string;

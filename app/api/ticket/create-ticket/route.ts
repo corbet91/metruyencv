@@ -5,21 +5,22 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
   try {
-    const { userId, title, description } = await req.json();
+    const { userId, title, report, content } = await req.json();
 
     await connectDB();
 
     const ticket = new Ticket({
       userId: userId,
       title: title,
-      description: description,
-      open: Status.open
+      report: report,
+      content: content,
+      open: Status.open,
     });
 
     const savedticket = await ticket.save();
 
     return NextResponse.json({ ticket: savedticket }, { status: 201 });
   } catch (err) {
-    return NextResponse.json({ status: 500 });
+    return NextResponse.json({ error: err }, { status: 500 });
   }
 };

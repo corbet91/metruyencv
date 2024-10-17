@@ -1,9 +1,9 @@
-import { Status } from "@/enum/ticket";
+import { REPORT_TYPE, Status } from "@/enum/ticket";
 import { TicketDocument } from "@/types/tickets";
-import mongoose, { model } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 import Counter from "./counter";
 
-const TicketSchema = new mongoose.Schema(
+const TicketSchema = new Schema<TicketDocument>(
   {
     id: {
       type: Number,
@@ -14,7 +14,16 @@ const TicketSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    description: {
+    report: {
+      type: String,
+      enum: [
+        REPORT_TYPE.BUG_CARD,
+        REPORT_TYPE.BUG_FUNCTION,
+        REPORT_TYPE.BUG_OTHER,
+      ],
+      required: true,
+    },
+    content: {
       type: String,
       required: true,
     },
@@ -24,7 +33,7 @@ const TicketSchema = new mongoose.Schema(
       default: Status.open,
     },
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },

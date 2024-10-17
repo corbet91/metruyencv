@@ -6,7 +6,8 @@ export const createNewTicket = async (body: ITicket) => {
     const response = await apiClient.post(`/api/ticket/create-ticket`, {
       userId: body.userId,
       title: body.title,
-      description: body.description,
+      report: body.report,
+      content: body.content,
     });
     return response;
   } catch (error) {
